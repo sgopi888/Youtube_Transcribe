@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>YouTube Transcript</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="card">
+        <header class="header">
+          <div class="brand">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <div>
+              <p class="eyebrow">Transcript Studio</p>
+              <p class="brand-subtitle">Professional transcript extraction</p>
+            </div>
+          </div>
+          <h1>Generate a clean transcript with a single video ID.</h1>
+          <p class="subhead">Paste the ID and we’ll fetch the full transcript instantly.</p>
+        </header>
+
+        <div class="form">
+          <label class="label" for="videoId">Video ID</label>
+          <div class="input-row">
+            <input
+              id="videoId"
+              name="videoId"
+              type="text"
+              placeholder="gAaCqj6j5sQ"
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <button id="submitBtn" type="button">Generate</button>
+          </div>
+          <p class="hint">Example: `gAaCqj6j5sQ` (no full URL required).</p>
+          <p id="status" class="status" role="status"></p>
+        </div>
+
+        <div class="output">
+          <div class="output-header">
+            <h2>Transcript</h2>
+            <div class="actions">
+              <button id="downloadTxtBtn" class="ghost" type="button">Download TXT</button>
+              <button id="downloadPdfBtn" class="ghost" type="button">Download PDF</button>
+              <button id="copyBtn" type="button">Copy</button>
+            </div>
+          </div>
+          <textarea id="transcript" readonly placeholder="Transcript appears here..."></textarea>
+        </div>
+
+        <div class="output summary">
+          <div class="output-header">
+            <h2>Summary</h2>
+            <div class="actions">
+              <button id="summarizeBtn" type="button">Summarize</button>
+              <button id="downloadSummaryBtn" class="ghost" type="button">Download_Summary</button>
+            </div>
+          </div>
+          <textarea id="summary" readonly placeholder="Summary appears here..."></textarea>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

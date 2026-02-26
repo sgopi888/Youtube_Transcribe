@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ES2020",
+    "moduleResolution": "Bundler",
+    "lib": ["DOM", "ES2020"],
+    "strict": true,
+    "rootDir": "ui",
+    "outDir": "ui",
+    "noEmitOnError": true
+  },
+  "include": ["ui/app.ts"]
+}

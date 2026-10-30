@@ -47,6 +47,10 @@ public enum Library {
         FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask)[0].appendingPathComponent("YTScribe")
     }
     public static var originalsDir: URL { musicDir.appendingPathComponent("Originals") }
+    /// ~/Movies/YTScribe: downloaded MP4 videos.
+    public static var videosDir: URL {
+        FileManager.default.urls(for: .moviesDirectory, in: .userDomainMask)[0].appendingPathComponent("YTScribe")
+    }
     public static var karaokeDir: URL { musicDir.appendingPathComponent("Karaoke") }
 
     /// Songs saved straight in ~/Music/YTScribe by earlier versions move into `originalsDir`. Never overwrites.

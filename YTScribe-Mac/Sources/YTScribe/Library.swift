@@ -19,7 +19,7 @@ final class LibraryStore: ObservableObject {
     /// Re-reads the folders so the lists always match what is on disk.
     func sync() {
         var idx = index
-        idx.sync(musicDir: Library.originalsDir, karaokeDir: Library.karaokeDir, summariesDir: Library.summariesDir)
+        idx.sync(musicDir: Library.originalsDir, karaokeDir: Library.karaokeDir, summariesDir: Library.summariesDir, videosDir: Library.videosDir)
         if idx != index { index = idx; persist() }
     }
 
@@ -36,12 +36,14 @@ final class LibraryStore: ObservableObject {
         persist()
     }
 
-    /// Songs under ~/Music/YTScribe, or a summary's whole folder under ~/Downloads/YTScribe. Anything else is never trashed.
+    /// Songs under ~/Music/YTScribe, videos under ~/Movies/YTScribe, or a summary's whole folder under ~/Downloads/YTScribe.
+    /// Anything else is never trashed.
     static func trashTarget(_ e: LibraryEntry) -> URL? {
         if e.kind == .summary {
             let folder = e.url.deletingLastPathComponent()
             return folder.deletingLastPathComponent().path == Library.summariesDir.path ? folder : nil
         }
+        if e.kind == .video { return e.path.hasPrefix(Library.videosDir.path + "/") ? e.url : nil }
         return e.path.hasPrefix(Library.musicDir.path + "/") ? e.url : nil
     }
 
@@ -104,7 +106,7 @@ struct LibraryPanel: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            GlassSegmented(selection: $kind, items: [("Summaries", LibraryKind.summary), ("Originals", LibraryKind.original), ("Karaoke", LibraryKind.karaoke)])
+            GlassSegmented(selection: $kind, items: [("Summaries", LibraryKind.summary), ("Originals", LibraryKind.original), ("Karaoke", LibraryKind.karaoke), ("Videos", LibraryKind.video)])
             Button { openFolder(kind) } label: {
                 Label("Open \(Self.name(kind)) folder (\(library.entries(kind).count))", systemImage: "folder").frame(maxWidth: .infinity)
             }
@@ -113,7 +115,7 @@ struct LibraryPanel: View {
             let items = library.entries(kind)
             if items.isEmpty {
                 Spacer()
-                Text(kind == .original ? "Downloaded and dropped songs show up here." : kind == .karaoke ? "Finished karaoke tracks show up here." : "Finished summaries show up here.")
+                Text(kind == .video ? "Downloaded MP4 videos show up here." : kind == .original ? "Downloaded and dropped songs show up here." : kind == .karaoke ? "Finished karaoke tracks show up here." : "Finished summaries show up here.")
                     .font(.callout).foregroundStyle(.secondary).multilineTextAlignment(.center).frame(maxWidth: .infinity)
                 Spacer()
             } else {
@@ -145,11 +147,11 @@ struct LibraryPanel: View {
     }
 
     static func folder(_ kind: LibraryKind) -> URL {
-        switch kind { case .original: Library.originalsDir; case .karaoke: Library.karaokeDir; case .summary: Library.summariesDir }
+        switch kind { case .original: Library.originalsDir; case .karaoke: Library.karaokeDir; case .summary: Library.summariesDir; case .video: Library.videosDir }
     }
 
     static func name(_ kind: LibraryKind) -> String {
-        switch kind { case .original: "Originals"; case .karaoke: "Karaoke"; case .summary: "Summaries" }
+        switch kind { case .original: "Originals"; case .karaoke: "Karaoke"; case .summary: "Summaries"; case .video: "Videos" }
     }
 
     private func openFolder(_ kind: LibraryKind) {
@@ -171,7 +173,7 @@ struct HistoryRow: View {
     /// Date, plus the subfolder when the file lives below the kind's root directory.
     private var subtitle: String {
         if entry.kind == .summary { return entry.added.formatted(date: .abbreviated, time: .shortened) }
-        let root = (entry.kind == .karaoke ? Library.karaokeDir : Library.originalsDir).path + "/"
+        let root = (entry.kind == .karaoke ? Library.karaokeDir : entry.kind == .video ? Library.videosDir : Library.originalsDir).path + "/"
         let folder = entry.url.deletingLastPathComponent().path + "/"
         let rel = folder.hasPrefix(root) ? String(folder.dropFirst(root.count).dropLast()) : ""
         let date = entry.added.formatted(date: .abbreviated, time: .shortened)
@@ -181,8 +183,9 @@ struct HistoryRow: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(spacing: 10) {
-                Button { entry.kind == .summary ? onOpen() : player.toggle(entry) } label: {
-                    Image(systemName: entry.kind == .summary ? "doc.text.fill" : active && player.isPlaying ? "pause.circle.fill" : "play.circle.fill").font(.title2)
+                // Videos open in the default player (QuickTime/IINA); AVAudioPlayer can't show video.
+                Button { entry.kind == .summary ? onOpen() : entry.kind == .video ? _ = NSWorkspace.shared.open(entry.url) : player.toggle(entry) } label: {
+                    Image(systemName: entry.kind == .summary ? "doc.text.fill" : entry.kind == .video ? "play.rectangle.fill" : active && player.isPlaying ? "pause.circle.fill" : "play.circle.fill").font(.title2)
                         .foregroundStyle(exists ? AnyShapeStyle(Theme.gradient) : AnyShapeStyle(Color.secondary))
                 }
                 .buttonStyle(.plain).disabled(!exists)

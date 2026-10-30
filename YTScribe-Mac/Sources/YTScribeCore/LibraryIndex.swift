@@ -1,6 +1,6 @@
 import Foundation
 
-public enum LibraryKind: String, Codable, Sendable { case original, karaoke, summary }
+public enum LibraryKind: String, Codable, Sendable { case original, karaoke, summary, video }
 
 public struct LibraryEntry: Codable, Identifiable, Equatable, Sendable {
     public var id = UUID()
@@ -44,11 +44,13 @@ public struct LibraryIndex: Codable, Equatable, Sendable {
     }
 
     public static let audioExtensions: Set<String> = ["mp3", "m4a", "wav", "flac", "aac", "ogg", "opus", "aiff", "aif"]
+    public static let videoExtensions: Set<String> = ["mp4", "m4v", "mov", "webm", "mkv"]
 
     /// Makes the lists mirror the folders: Originals = every audio file under `musicDir` (subfolders included, `karaokeDir`
-    /// excluded), Karaoke = every audio file under `karaokeDir`, Summaries = every `summary.md` under `summariesDir`.
+    /// excluded), Karaoke = every audio file under `karaokeDir`, Summaries = every `summary.md` under `summariesDir`,
+    /// Videos = every video file under `videosDir`.
     /// Files gone from disk drop out; new ones go on top. Existing entries keep the user's order; removed ones stay hidden.
-    public mutating func sync(musicDir: URL, karaokeDir: URL, summariesDir: URL? = nil) {
+    public mutating func sync(musicDir: URL, karaokeDir: URL, summariesDir: URL? = nil, videosDir: URL? = nil) {
         let fm = FileManager.default
         func scan(_ dir: URL, skipping skip: String?, accepts: (URL) -> Bool) -> [URL] {
             guard let en = fm.enumerator(at: dir, includingPropertiesForKeys: [.contentModificationDateKey], options: [.skipsHiddenFiles]) else { return [] }
@@ -64,6 +66,7 @@ public struct LibraryIndex: Codable, Equatable, Sendable {
         var roots: [(LibraryKind, URL, String?, (URL) -> Bool)] = [
             (.original, musicDir, karaokeDir.resolvingSymlinksInPath().path, isAudio), (.karaoke, karaokeDir, nil, isAudio)]
         if let s = summariesDir { roots.append((.summary, s, nil, { $0.lastPathComponent == "summary.md" })) }
+        if let v = videosDir { roots.append((.video, v, nil, { Self.videoExtensions.contains($0.pathExtension.lowercased()) })) }
         for (kind, dir, skip, accepts) in roots {
             let files = scan(dir, skipping: skip, accepts: accepts)
             let onDisk = Set(files.map(\.path))

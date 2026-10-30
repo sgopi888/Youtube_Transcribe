@@ -65,12 +65,39 @@ public struct AudioDownloader: Sendable {
         }
     }
 
+    /// MP4 qualities. Fixed heights prefer H.264 + AAC so QuickTime plays the file; "best" takes the highest
+    /// resolution, which on YouTube is often VP9/AV1 (plays in IINA/VLC/browsers, not always QuickTime).
+    public static let videoQualities: [(id: String, title: String)] = [("best", "Best (up to 4K)"), ("1080", "1080p"), ("720", "720p"), ("480", "480p"), ("360", "360p")]
+
+    static func videoArguments(url: String, outDir: URL, quality: String, ffmpegDir: URL, node: URL? = nil) -> [String] {
+        let sort = quality == "best" ? "res,fps" : "res:\(quality),vcodec:h264,acodec:m4a"
+        return (node.map { ["--js-runtimes", "node:\($0.path)"] } ?? []) + ["-f", "bv*+ba/b", "-S", sort, "--merge-output-format", "mp4",
+         "--embed-metadata", "--no-playlist", "--no-simulate", "--newline",
+         "--ffmpeg-location", ffmpegDir.path,
+         "--print", "before_dl:TITLE\t%(title)s",
+         "--print", "after_move:FILE\t%(filepath)s",
+         "--progress-template", "download:PCT\t%(progress._percent_str)s",
+         "-o", outDir.appendingPathComponent("%(title).80s [%(id)s] \(quality).%(ext)s").path,
+         url]
+    }
+
+    /// Downloads the video as MP4 at `quality` (an id from `videoQualities`). Returns the MP4 URL.
+    public func downloadVideo(videoID: String, outDir: URL, quality: String, onEvent: @escaping @Sendable (AudioEvent) -> Void) async throws -> URL {
+        try await run(Self.videoArguments(url: "https://www.youtube.com/watch?v=\(videoID)", outDir: outDir, quality: quality,
+                                          ffmpegDir: ffmpeg.deletingLastPathComponent(), node: node), outDir: outDir, onEvent: onEvent)
+    }
+
     /// Runs the download; `onEvent` is called for title, progress and the final file. Returns the MP3 URL.
     public func download(videoID: String, outDir: URL, onEvent: @escaping @Sendable (AudioEvent) -> Void) async throws -> URL {
+        try await run(Self.arguments(url: "https://www.youtube.com/watch?v=\(videoID)", outDir: outDir, ffmpegDir: ffmpeg.deletingLastPathComponent(), node: node),
+                      outDir: outDir, onEvent: onEvent)
+    }
+
+    private func run(_ arguments: [String], outDir: URL, onEvent: @escaping @Sendable (AudioEvent) -> Void) async throws -> URL {
         try FileManager.default.createDirectory(at: outDir, withIntermediateDirectories: true)
         let p = Process()
         p.executableURL = ytdlp
-        p.arguments = Self.arguments(url: "https://www.youtube.com/watch?v=\(videoID)", outDir: outDir, ffmpegDir: ffmpeg.deletingLastPathComponent(), node: node)
+        p.arguments = arguments
         let out = Pipe(), err = Pipe()
         p.standardOutput = out; p.standardError = err
 

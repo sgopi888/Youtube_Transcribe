@@ -100,6 +100,17 @@ final class AudioTests: XCTestCase {
         XCTAssertEqual(a[a.firstIndex(of: "--audio-quality")! + 1], "0")
         XCTAssertEqual(a.last, "u")
     }
+
+    func testVideoArgumentsPreferH264AtFixedHeights() {
+        let a = AudioDownloader.videoArguments(url: "u", outDir: URL(fileURLWithPath: "/o"), quality: "720", ffmpegDir: URL(fileURLWithPath: "/f"))
+        XCTAssertEqual(a[a.firstIndex(of: "-S")! + 1], "res:720,vcodec:h264,acodec:m4a")
+        XCTAssertEqual(a[a.firstIndex(of: "--merge-output-format")! + 1], "mp4")
+        XCTAssertTrue(a[a.firstIndex(of: "-o")! + 1].hasSuffix("[%(id)s] 720.%(ext)s"))
+        XCTAssertEqual(a.last, "u")
+        let b = AudioDownloader.videoArguments(url: "u", outDir: URL(fileURLWithPath: "/o"), quality: "best", ffmpegDir: URL(fileURLWithPath: "/f"))
+        XCTAssertEqual(b[b.firstIndex(of: "-S")! + 1], "res,fps")
+        XCTAssertEqual(AudioDownloader.videoQualities.map(\.id), ["best", "1080", "720", "480", "360"])
+    }
     func testLiveDownload() async throws {
         try XCTSkipUnless(ProcessInfo.processInfo.environment["YT_LIVE"] == "1")
         let dir = FileManager.default.temporaryDirectory.appendingPathComponent("ytscribe-audio-test")
@@ -271,6 +282,18 @@ final class LibraryIndexTests: XCTestCase {
         var i = LibraryIndex()
         i.sync(musicDir: dir.appendingPathComponent("o"), karaokeDir: dir.appendingPathComponent("k"), summariesDir: dir)
         XCTAssertEqual(i.list(.summary).map(\.title), ["Talk [abc]"])
+    }
+
+    func testSyncListsVideosOnlyFromVideosDir() throws {
+        let dir = FileManager.default.temporaryDirectory.appendingPathComponent("lib-" + UUID().uuidString)
+        let v = dir.appendingPathComponent("Movies")
+        try FileManager.default.createDirectory(at: v, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: dir) }
+        for f in ["Clip [id] 720.mp4", "notes.txt"] { try Data([1]).write(to: v.appendingPathComponent(f)) }
+        var i = LibraryIndex()
+        i.sync(musicDir: dir.appendingPathComponent("o"), karaokeDir: dir.appendingPathComponent("k"), videosDir: v)
+        XCTAssertEqual(i.list(.video).map(\.title), ["Clip [id] 720"])
+        XCTAssertTrue(i.list(.original).isEmpty)
     }
 
     func testSyncMirrorsFoldersIncludingSubfoldersAndDeletions() throws {

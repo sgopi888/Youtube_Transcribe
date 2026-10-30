@@ -52,6 +52,7 @@ struct ContentView: View {
             switch store.mode {
             case .summary: SummaryTab()
             case .audio: AudioTab()
+            case .video: VideoTab()
             case .karaoke: KaraokeTab()
             }
         }
@@ -114,7 +115,7 @@ struct TopBar: View {
                 }
                 .buttonStyle(.plain).help("OpenAI key and model")
             }
-            GlassSegmented(selection: tab, items: [("AI Summary", .summary), ("Audio Downloader", .audio), ("Karaoke AI", .karaoke)], size: 12.5)
+            GlassSegmented(selection: tab, items: [("AI Summary", .summary), ("Audio Downloader", .audio), ("Video Downloader", .video), ("Karaoke AI", .karaoke)], size: 12.5)
         }
         .padding(.horizontal, 16)
         .frame(height: 52)
@@ -135,6 +136,7 @@ struct Sidebar: View {
             VStack(spacing: 2) {
                 item("captions.bubble", "Recent Captions", active: !store.showVault && store.mode == .summary) { store.mode = .summary; store.showVault = false }
                 item("icloud.and.arrow.down", "Downloads Queue", active: !store.showVault && store.mode == .audio) { store.mode = .audio; store.showVault = false }
+                item("film", "Video Downloads", active: !store.showVault && store.mode == .video) { store.mode = .video; store.showVault = false }
                 item("mic", "Stem Separation", active: !store.showVault && store.mode == .karaoke) { store.mode = .karaoke; store.showVault = false }
                 item("music.note.list", "Audio Vault", active: store.showVault) { store.showVault = true }
             }
@@ -163,7 +165,7 @@ struct Sidebar: View {
 
     /// Live job load, in the slot the mockup uses for its compute meter.
     private var activeCard: some View {
-        let total = store.jobs.count + store.audioJobs.count
+        let total = store.jobs.count + store.audioJobs.count + store.videoJobs.count
         return VStack(alignment: .leading, spacing: 6) {
             HStack {
                 Text("Active Jobs").font(.ui(11, .medium)).foregroundStyle(Theme.variant)
@@ -184,6 +186,7 @@ extension JobStore {
                 if case .downloading = $0.status { return true }
                 switch $0.karaoke { case .running, .settingUp: return true; default: return false }
             }.count
+            + videoJobs.filter { if case .downloading = $0.status { return true }; return false }.count
     }
 }
 

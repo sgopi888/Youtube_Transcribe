@@ -4,7 +4,8 @@ YTScribe is a native macOS app (SwiftUI, Apple Silicon) with three jobs:
 
 1. Summarize YouTube videos.
 2. Download their audio as MP3.
-3. Strip the vocals from any song to make a karaoke instrumental.
+3. Download the video as MP4.
+4. Strip the vocals from any song to make a karaoke instrumental.
 
 Everything except the summary (OpenAI) and the YouTube fetches runs on this Mac.
 
@@ -17,13 +18,13 @@ The UI follows the **Liquid Graphite** design in `stitch_ytscribe_macos_suite/`.
 | Area | What it shows | What it does |
 |---|---|---|
 | **Top bar** (52 pt) | Traffic lights, app icon, "YTScribe" | The window's own title bar is hidden, and this bar replaces it. |
-| Center tabs | **AI Summary · Audio Downloader · Karaoke AI** as a segmented control with a sliding pill | Switches the workspace. Also closes Audio Vault. |
+| Center tabs | **AI Summary · Audio Downloader · Video Downloader · Karaoke AI** as a segmented control with a sliding pill | Switches the workspace. Also closes Audio Vault. |
 | Status pill | Glowing cyan dot, CPU icon, "N jobs running" or "On-device engine ready" | Live count of summaries, downloads and separations in progress. |
 | Folder link | `~/Music/YTScribe/` | Opens that folder in Finder. |
 | Gear and profile circle | Settings icons | Both open **Settings**: the OpenAI key and the model name. |
-| **Sidebar** (240 pt) | "TRANSCRIPTIONS" label, plus **Recent Captions, Downloads Queue, Stem Separation, Audio Vault** | The first three match the three tabs. Audio Vault opens History in the main area. The active item is highlighted. |
+| **Sidebar** (240 pt) | "TRANSCRIPTIONS" label, plus **Recent Captions, Downloads Queue, Video Downloads, Stem Separation, Audio Vault** | The first four match the four tabs. Audio Vault opens History in the main area. The active item is highlighted. |
 | Active Jobs card | "N of M" in cyan, with a progress bar | How many of this session's jobs are finished. |
-| Paste anywhere | ⌘V in the window | Starts jobs for every YouTube link in the pasted text. On AI Summary that means a summary, on Audio Downloader a download. Karaoke AI ignores links. |
+| Paste anywhere | ⌘V in the window | Starts jobs for every YouTube link in the pasted text. On AI Summary that means a summary, on Audio Downloader an MP3, on Video Downloader an MP4. Karaoke AI ignores links. |
 | Drop anywhere | Drag audio files onto the window | A dashed indigo outline appears. On **Karaoke AI**, each file starts separating at once. On the other tabs, it is added to the Audio Downloader list. |
 
 Minimum window size is 1180 × 760. The app is always in dark mode.
@@ -144,6 +145,23 @@ Minimum window size is 1180 × 760. The app is always in dark mode.
 
 ---
 
+## 3b. Video Downloader tab
+
+- **Link bar:** works like the Audio tab. Any pasted link starts an MP4 download at once; a **Clipboard** chip and **Download MP4** button do the same.
+- **Video Quality:** **Best (up to 4K) · 1080p · 720p · 480p · 360p**. The choice is remembered.
+  - Fixed heights prefer **H.264 + AAC**, so the file plays in QuickTime.
+  - **Best** takes the highest resolution, which on YouTube is often VP9/AV1. Those may need IINA or VLC.
+- **Target Vault card:** `~/Movies/YTScribe/`, with **Reveal in Finder**.
+- **Video Pipeline cards:**
+  - YouTube thumbnail with a quality badge (`720p`, `MAX`), title, status pill, link, and size.
+  - While downloading: a big percentage and a progress bar.
+  - When done: **Play** (opens in the default video player), **Show in Finder**, **Save As…**.
+  - When failed: the error and **Retry** (same quality).
+- **Stats:** Video Engine (yt-dlp + ffmpeg, MP4) and Video Storage (size and count in `~/Movies/YTScribe`, free disk).
+- **How it works:** yt-dlp downloads the best video and audio streams at the chosen height and ffmpeg merges them into one MP4 with metadata. Files are named `<title> [<id>] <quality>.mp4`, so different qualities of one video sit side by side.
+
+---
+
 ## 4. Karaoke AI tab
 
 ### Top strip
@@ -202,7 +220,7 @@ Click a row to choose the model for new files.
 ## 5. Audio Vault (History)
 
 - **Opening it:** the sidebar's **Audio Vault** item. It fills the main area.
-- **Tabs:** **Summaries · Originals · Karaoke.**
+- **Tabs:** **Summaries · Originals · Karaoke · Videos.** Video rows open in the default video player.
 - **Open folder:** a button opens the folder for the current tab and shows how many items it holds.
 - **Rows:**
   - A play/pause button for audio, or a document icon for summaries.
@@ -262,6 +280,7 @@ Type: the system font (SF Pro) for interface text, and SF Mono for paths, timest
 | `~/Downloads/YTScribe/<title> [<id>]/` | `summary.md`, `transcript.txt` |
 | `~/Music/YTScribe/Originals/` | Downloaded and imported audio |
 | `~/Music/YTScribe/Karaoke/` | Instrumentals |
+| `~/Movies/YTScribe/` | MP4 videos |
 | `~/Library/Application Support/YTScribe/` | `library.json` (History order), `openai.key`, Core ML model, Roformer environment |
 
 ## 9. Build and install

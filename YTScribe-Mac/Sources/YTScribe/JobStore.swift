@@ -29,7 +29,17 @@ struct AudioJob: Identifiable {
     var karaokeOnly = false  // created from the Karaoke tab, hidden from the Audio tab
 }
 
-enum Mode: String { case summary, audio, karaoke }
+struct VideoJob: Identifiable {
+    enum Status: Equatable { case downloading(Double), done, failed(String) }
+    let id: String  // "<video ID>:<quality>"
+    let videoID: String
+    let quality: String
+    var title: String
+    var status: Status = .downloading(0)
+    var file: URL?
+}
+
+enum Mode: String { case summary, audio, video, karaoke }
 
 @MainActor
 final class JobStore: ObservableObject {
@@ -40,6 +50,10 @@ final class JobStore: ObservableObject {
     let library = LibraryStore()
     @Published var audioJobs: [AudioJob] = []
     @Published var audioSelection: String?
+    @Published var videoJobs: [VideoJob] = []
+    @Published var videoQuality: String = UserDefaults.standard.string(forKey: "videoQuality") ?? "1080" {
+        didSet { UserDefaults.standard.set(videoQuality, forKey: "videoQuality") }
+    }
     @Published var karaokeModel: KaraokeModel = KaraokeModel(rawValue: UserDefaults.standard.string(forKey: "karaokeModel") ?? "") ?? .htdemucsCoreML {
         didSet { UserDefaults.standard.set(karaokeModel.rawValue, forKey: "karaokeModel") }
     }
@@ -50,6 +64,7 @@ final class JobStore: ObservableObject {
     func add(from text: String) -> Int {
         if mode == .karaoke { return 0 }
         if mode == .audio { return addAudio(from: text) }
+        if mode == .video { return addVideo(from: text) }
         var started = 0
         for id in YouTubeURL.videoIDs(in: text) {
             if let existing = jobs.first(where: { $0.id == id }), existing.status != .done, !isFailed(existing) { continue }
@@ -152,6 +167,53 @@ extension JobStore {
             library.add(.original, title: file.deletingPathExtension().lastPathComponent, url: file)
         } catch {
             updateAudio(id) { $0.status = .failed(error.localizedDescription) }
+        }
+    }
+}
+
+// MARK: video
+extension JobStore {
+    func addVideo(from text: String) -> Int {
+        var started = 0
+        for vid in YouTubeURL.videoIDs(in: text) {
+            let id = "\(vid):\(videoQuality)"
+            if let e = videoJobs.first(where: { $0.id == id }), case .downloading = e.status { continue }
+            videoJobs.removeAll { $0.id == id }
+            videoJobs.insert(VideoJob(id: id, videoID: vid, quality: videoQuality, title: vid), at: 0)
+            started += 1
+            let quality = videoQuality
+            Task { await runVideo(id, vid, quality) }
+        }
+        return started
+    }
+
+    func retryVideo(_ id: String) {
+        guard let j = videoJobs.first(where: { $0.id == id }) else { return }
+        let keep = videoQuality
+        videoQuality = j.quality
+        _ = addVideo(from: j.videoID)
+        videoQuality = keep
+    }
+
+    private func updateVideo(_ id: String, _ change: (inout VideoJob) -> Void) {
+        if let i = videoJobs.firstIndex(where: { $0.id == id }) { change(&videoJobs[i]) }
+    }
+
+    private func runVideo(_ id: String, _ vid: String, _ quality: String) async {
+        do {
+            let file = try await AudioDownloader().downloadVideo(videoID: vid, outDir: Library.videosDir, quality: quality) { [weak self] ev in
+                Task { @MainActor in
+                    switch ev {
+                    case .title(let t): self?.updateVideo(id) { $0.title = t }
+                    case .progress(let p): self?.updateVideo(id) { if case .downloading = $0.status { $0.status = .downloading(p) } }
+                    case .file: break
+                    }
+                }
+            }
+            updateVideo(id) { $0.file = file; $0.status = .done }
+            library.add(.video, title: file.deletingPathExtension().lastPathComponent, url: file)
+        } catch {
+            updateVideo(id) { $0.status = .failed(error.localizedDescription) }
         }
     }
 }

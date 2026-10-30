@@ -31,8 +31,12 @@ struct MarkdownView: View {
     }
 
     private func inline(_ s: String) -> Text {
-        let attr = try? AttributedString(markdown: s, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))
-        return Text(attr ?? AttributedString(s))
+        var attr = (try? AttributedString(markdown: s, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))) ?? AttributedString(s)
+        // Summary text comes from the model (and indirectly the video), so only web links stay clickable.
+        for run in attr.runs where run.link != nil {
+            if !["http", "https"].contains(run.link?.scheme?.lowercased() ?? "") { attr[run.range].link = nil }
+        }
+        return Text(attr)
     }
 
     var body: some View {

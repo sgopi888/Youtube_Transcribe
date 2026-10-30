@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"outline-variant":"#464554","tertiary-fixed-dim":"#4cd7f6","on-secondary-fixed-variant":"#5516be","inverse-surface":"#dfe2ef","surface-tint":"#c0c1ff","on-error-container":"#ffdad6","on-secondary-container":"#c4abff","on-surface":"#dfe2ef","error-container":"#93000a","surface-dim":"#0f131c","on-tertiary":"#003640","tertiary-fixed":"#acedff","secondary-fixed":"#e9ddff","on-tertiary-fixed":"#001f26","on-primary-fixed-variant":"#2f2ebe","on-secondary-fixed":"#23005c","inverse-primary":"#494bd6","primary-fixed-dim":"#c0c1ff","surface-container-highest":"#31353f","surface":"#0f131c","secondary-container":"#571bc1","on-primary-fixed":"#07006c","on-primary":"#1000a9","surface-container":"#1c1f29","outline":"#908fa0","surface-container-low":"#181b25","surface-container-high":"#262a34","tertiary":"#4cd7f6","on-tertiary-container":"#002f38","on-background":"#dfe2ef","surface-container-lowest":"#0a0e17","tertiary-container":"#009eb9","inverse-on-surface":"#2c303a","surface-variant":"#31353f","secondary-fixed-dim":"#d0bcff","on-surface-variant":"#c7c4d7","on-tertiary-fixed-variant":"#004e5c","secondary":"#d0bcff","primary":"#c0c1ff","primary-container":"#8083ff","surface-bright":"#353943","on-secondary":"#3c0091","on-error":"#690005","error":"#ffb4ab","background":"#0f131c","on-primary-container":"#0d0096","primary-fixed":"#e1e0ff"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"space-xl":"1.75rem",margin:"1.25rem","space-md":"0.75rem",gutter:"0.75rem","space-sm":"0.5rem","space-xs":"0.25rem","space-lg":"1.25rem"},fontFamily:{"body-lg":["Inter"],"headline-xl":["Inter"],"body-sm":["Inter"],"label-md":["Inter"],"code-timestamp":["JetBrains Mono"],"headline-sm":["Inter"],"headline-md":["Inter"],"code-meta":["JetBrains Mono"],"headline-lg":["Inter"],"body-md":["Inter"],"label-sm":["Inter"]},fontSize:{"body-lg":["15px",{lineHeight:"24px",letterSpacing:"-0.009em",fontWeight:"400"}],"headline-xl":["28px",{lineHeight:"36px",letterSpacing:"-0.022em",fontWeight:"600"}],"body-sm":["12px",{lineHeight:"17px",letterSpacing:"-0.003em",fontWeight:"400"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.01em",fontWeight:"500"}],"code-timestamp":["11px",{lineHeight:"14px",letterSpacing:"0.02em",fontWeight:"500"}],"headline-sm":["15px",{lineHeight:"20px",letterSpacing:"-0.012em",fontWeight:"600"}],"headline-md":["18px",{lineHeight:"24px",letterSpacing:"-0.015em",fontWeight:"600"}],"code-meta":["12px",{lineHeight:"16px",letterSpacing:"0.00em",fontWeight:"400"}],"headline-lg":["22px",{lineHeight:"28px",letterSpacing:"-0.019em",fontWeight:"600"}],"body-md":["13px",{lineHeight:"20px",letterSpacing:"-0.006em",fontWeight:"400"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.02em",fontWeight:"500"}]}}}}</script></head><body class="bg-surface font-body-md text-body-md text-on-surface select-none antialiased min-h-screen"><header class="fixed top-0 inset-x-0 h-14 z-50 bg-surface-container-lowest/80 backdrop-blur-2xl shadow-[0_1px_8px_rgba(0,0,0,0.4)] flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs"><span class="w-3 h-3 rounded-full bg-[#FF5F56] shadow-[0_0_1px_rgba(0,0,0,0.6)] cursor-pointer hover:brightness-90 transition-all"></span><span class="w-3 h-3 rounded-full bg-[#FFBD2E] shadow-[0_0_1px_rgba(0,0,0,0.6)] cursor-pointer hover:brightness-90 transition-all"></span><span class="w-3 h-3 rounded-full bg-[#27C93F] shadow-[0_0_1px_rgba(0,0,0,0.6)] cursor-pointer hover:brightness-90 transition-all"></span></div><div class="flex items-center gap-space-xs ml-space-sm"><img alt="YTScribe macOS Icon" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1V7Vw9JZ6bRkjKg4915qPTDNnApzUgBNcdzZMVlMGriiUIX00-FnYSGB-oEk-CVkQQBs2ts4dnp_tQ6M5OOMLLxo9JbifygInaujzOGzjHYL41B2H4hiIjhjCeIE7fScsVVjOaM4onCgnQRSWODES4l9DFafgzjNkAT_h2Spi-sejl3WEYT-cfADZ-8LjdmHLw8yZ6PMDCa2SQojuUvyK4qzQBm6xyOsrhcgK7vwChj"/><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight ml-space-xs">YTScribe</span></div></div><div class="flex items-center justify-center"><nav class="flex items-center p-[2px] rounded-lg bg-surface-container-lowest/70 backdrop-blur-md" data-active-classes="bg-surface-container-highest text-on-surface shadow-[0_1px_3px_rgba(0,0,0,0.4)] font-medium"><a class="px-space-md py-1 rounded-[6px] font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all" data-path="ai-summary" href="#">AI Summary</a><a aria-current="page" class="px-space-md py-1 rounded-[6px] transition-all bg-surface-container-highest text-on-surface shadow-[0_1px_3px_rgba(0,0,0,0.4)] font-medium" data-path="audio-downloader" href="#">Audio Downloader</a><a class="px-space-md py-1 rounded-[6px] font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all" data-path="karaoke-ai" href="#">Karaoke AI</a></nav></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-sm py-[3px] rounded-full bg-surface-container/60"><span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span><span class="material-symbols-outlined text-tertiary text-[14px]">memory</span><span class="font-code-timestamp text-code-timestamp text-on-surface-variant">Apple Neural Engine Active</span></div><a class="flex items-center gap-1 font-code-meta text-code-meta text-on-surface-variant hover:text-on-surface px-space-xs py-1 transition-colors" data-path="library" href="#"><span class="material-symbols-outlined text-[15px]">folder_special</span><span>~/Music/YTScribe/</span></a><a class="w-7 h-7 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[18px]">settings</span></a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-sm"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><aside class="fixed left-0 top-14 bottom-0 w-60 z-40 bg-surface-container-low/75 backdrop-blur-2xl flex flex-col justify-between py-space-md px-space-sm"><div class="space-y-space-md"><div class="px-space-xs text-on-surface-variant/70 font-label-sm text-label-sm uppercase tracking-wider">Transcriptions</div><nav class="space-y-1" data-active-classes="bg-surface-container-high text-on-surface font-semibold"><a class="flex items-center gap-space-xs px-space-sm py-[6px] rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="ai-summary" href="#"><span class="material-symbols-outlined text-[16px]">subtitles</span><span>Recent Captions</span></a><a aria-current="page" class="flex items-center gap-space-xs px-space-sm py-[6px] rounded-lg transition-colors bg-surface-container-high text-on-surface font-semibold" data-path="audio-downloader" href="#"><span class="material-symbols-outlined text-[16px]">cloud_download</span><span>Downloads Queue</span></a><a class="flex items-center gap-space-xs px-space-sm py-[6px] rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="karaoke-ai" href="#"><span class="material-symbols-outlined text-[16px]">mic</span><span>Stem Separation</span></a><a class="flex items-center gap-space-xs px-space-sm py-[6px] rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="library" href="#"><span class="material-symbols-outlined text-[16px]">library_music</span><span>Audio Vault</span></a></nav></div><div class="p-space-sm rounded-xl bg-surface-container-lowest/60 backdrop-blur-md"><div class="flex items-center justify-between mb-1"><span class="font-label-sm text-label-sm text-on-surface-variant">NPU Core Compute</span><span class="font-code-timestamp text-code-timestamp text-tertiary">16 Cores</span></div><div class="w-full h-1 rounded-full bg-surface-container-highest overflow-hidden"><div class="h-full w-2/5 bg-tertiary rounded-full"></div></div></div></aside><div class="pl-60"><main class="relative w-full pt-14 px-gutter min-h-screen bg-surface"><div class="flex flex-col w-full pb-24">
+<!-- Top Command Ingest Bar & Preset Control -->
+<div class="flex flex-col gap-space-md mb-space-lg">
+<!-- Link Ingest Glass Card -->
+<div class="relative w-full rounded-xl bg-surface-container-low shadow-xl p-space-md backdrop-blur-2xl">
+<div class="flex flex-col md:flex-row items-stretch md:items-center gap-space-md">
+<!-- Input Group -->
+<div class="relative flex-1 flex items-center bg-surface-container-lowest/80 rounded-lg px-space-md py-space-xs shadow-inner">
+<span class="material-symbols-outlined text-outline text-[20px] mr-space-sm select-none">link</span>
+<input class="w-full bg-transparent text-body-md font-body-md text-on-surface placeholder:text-outline focus:outline-none select-text" placeholder="Paste YouTube Video or Playlist URL (batch supported)..." type="text" value="https://youtube.com/playlist?list=PL4fGSI1pDJn43_Z2gX"/>
+<div class="flex items-center gap-space-xs ml-space-sm">
+<button class="px-space-xs py-[2px] rounded bg-surface-container-high hover:bg-surface-bright text-outline-variant hover:text-on-surface transition-colors flex items-center gap-1 font-code-timestamp text-code-timestamp shadow-sm" title="Auto-detected clipboard source">
+<span class="material-symbols-outlined text-[12px] text-tertiary">content_paste</span>
+<span>Clipboard</span>
+</button>
+<span class="font-code-meta text-code-meta text-outline-variant px-space-xs py-[2px] rounded bg-surface-container-highest/60 select-none">⌘V</span>
+</div>
+</div>
+<!-- Action Push Button -->
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="h-8 px-space-md rounded-lg bg-primary-container hover:bg-primary-container/90 active:scale-[0.98] text-on-primary-container font-label-md text-label-md transition-all shadow-[0_2px_8px_rgba(128,131,255,0.25)] flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px]">download</span>
+<span>Enqueue Batch</span>
+</button>
+<button class="h-8 w-8 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors flex items-center justify-center shadow-sm" title="Import from TXT/M3U playlist file">
+<span class="material-symbols-outlined text-[17px]">file_upload</span>
+</button>
+</div>
+</div>
+<!-- Secondary Presets & Filters Toolbar -->
+<div class="mt-space-md pt-space-sm flex flex-wrap items-center justify-between gap-space-md">
+<!-- Segmented Preset Control (macOS Pill) -->
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant select-none mr-space-xs">Audio Profile:</span>
+<div class="p-[2px] rounded-lg bg-surface-container-lowest/90 flex items-center shadow-inner">
+<button class="px-space-sm py-[4px] rounded-[6px] bg-surface-container-highest text-on-surface font-label-md text-label-md shadow-sm transition-all flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+<span>MP3 320 kbps (Studio)</span>
+</button>
+<button class="px-space-sm py-[4px] rounded-[6px] text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors">
+<span>MP3 VBR V0 (Audiophile)</span>
+</button>
+<button class="px-space-sm py-[4px] rounded-[6px] text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors">
+<span>Original Opus/AAC (Stream Lossless)</span>
+</button>
+</div>
+</div>
+<!-- Metadata Embed Toggles & Parallel Threads Indicator -->
+<div class="flex items-center gap-space-md font-body-sm text-body-sm text-on-surface-variant">
+<label class="flex items-center gap-space-xs cursor-pointer select-none group">
+<span class="w-3.5 h-3.5 rounded bg-primary-container text-on-primary-container flex items-center justify-center shadow-xs">
+<span class="material-symbols-outlined text-[11px]" style="font-variation-settings: 'wght' 700;">check</span>
+</span>
+<span class="group-hover:text-on-surface transition-colors font-label-sm text-label-sm">Embed Artwork & Lyrics</span>
+</label>
+<div class="flex items-center gap-1 bg-surface-container px-space-xs py-[2px] rounded-md font-code-timestamp text-code-timestamp text-tertiary">
+<span class="material-symbols-outlined text-[12px]">bolt</span>
+<span>4x Parallel Threads</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Destination Directory Banner -->
+<div class="rounded-xl bg-surface-container-lowest/80 p-space-md mb-space-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md shadow-md backdrop-blur-md">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary shrink-0 shadow-inner">
+<span class="material-symbols-outlined text-[20px]">folder_copy</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface">Target Vault:</span>
+<span class="font-code-meta text-code-meta text-primary truncate select-text">~/Music/YTScribe/</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Auto-sorting hierarchy enabled: <span class="font-code-timestamp text-code-timestamp text-tertiary-fixed-dim">/{Artist}/{Album}/{Track#}_{Title}.mp3</span></p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0 self-end md:self-auto">
+<button class="px-space-sm py-1 rounded-md bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md text-label-md flex items-center gap-1 transition-all shadow-sm">
+<span class="material-symbols-outlined text-[15px]">folder_open</span>
+<span>Reveal in Finder</span>
+</button>
+<button class="px-space-sm py-1 rounded-md bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors">
+<span>Change</span>
+</button>
+</div>
+</div>
+<!-- Live Download Queue Overview -->
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Active Pipeline</span>
+<span class="px-space-xs py-[1px] rounded-full bg-primary/20 text-primary font-code-timestamp text-code-timestamp">3 items</span>
+</div>
+<div class="flex items-center gap-space-md font-code-timestamp text-code-timestamp text-outline">
+<span class="flex items-center gap-1 text-tertiary">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-ping"></span>
+        Total Bandwidth: 18.2 MB/s
+      </span>
+<span>•</span>
+<span>Remaining: ~2m 45s</span>
+</div>
+</div>
+<!-- Queue Items Stack -->
+<div class="flex flex-col gap-space-md">
+<!-- Item 1: Active Progressing Download -->
+<div class="rounded-xl bg-surface-container-low hover:bg-surface-container transition-all p-space-md shadow-lg group">
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md">
+<!-- Left: Thumbnail Artwork & Metadata -->
+<div class="flex items-center gap-space-md min-w-0 flex-1">
+<div class="relative w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-surface-container-highest shadow-md">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Futuristic Daft Punk chrome robotic helmets album cover art glowing against a dark synthwave neon background with violet and deep indigo rim lighting high resolution graphic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCu78yR5czXbWO2x02QUYCkLIE5w13WA1mI1wsnf8ZtBkN3pmy5pYPOiiGNK3VZN8fJmBtiNQvM9MRRtQ6Y2Vlgko0lCUiPSbIONgj_4VV5z38vIezex4TXa8-XfmCbHnev4NQQwT3rWXSc92xeipyfbUrfZjUZGPenlQ52aHtCFM1tBPk5MEjTqffAWcVWKgiCCDVYwm5DHNSR9fUvB6dIL5pIA2GwxAB7YZ5s1eM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 via-transparent to-transparent"></div>
+<span class="absolute bottom-1 right-1 px-1 rounded bg-surface-container-lowest/90 text-on-surface font-code-timestamp text-[9px]">320K</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface truncate">Random Access Memories (Full Album Stream)</span>
+<span class="px-space-xs py-[1px] rounded bg-secondary-container/60 text-secondary-fixed font-code-timestamp text-[10px]">Studio Master</span>
+</div>
+<div class="flex items-center gap-space-sm mt-0.5 text-body-sm font-body-sm text-on-surface-variant flex-wrap">
+<span class="text-primary font-medium">Daft Punk</span>
+<span>•</span>
+<span>Columbia Records</span>
+<span>•</span>
+<span class="font-code-meta text-code-meta text-outline">2013</span>
+<span>•</span>
+<span class="font-code-meta text-code-meta text-outline">13 Tracks (74:24)</span>
+</div>
+</div>
+</div>
+<!-- Right: Status Metrics -->
+<div class="flex items-center gap-space-md shrink-0 w-full md:w-auto justify-between md:justify-end">
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-space-xs">
+<span class="font-code-timestamp text-code-timestamp text-tertiary">18.2 MB/s</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">94%</span>
+</div>
+<span class="font-code-meta text-code-meta text-outline">188.4 MB / 204.1 MB</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="w-8 h-8 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface flex items-center justify-center transition-colors shadow-sm" title="Pause">
+<span class="material-symbols-outlined text-[17px]">pause</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-surface-container-high hover:bg-error-container hover:text-on-error-container text-on-surface-variant flex items-center justify-center transition-colors shadow-sm" title="Cancel">
+<span class="material-symbols-outlined text-[17px]">close</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Live Dual-tier Progress bar -->
+<div class="mt-space-md flex flex-col gap-1">
+<div class="w-full h-1.5 rounded-full bg-surface-container-highest overflow-hidden relative shadow-inner">
+<div class="h-full bg-gradient-to-r from-primary via-tertiary to-primary-container rounded-full transition-all duration-300" style="width: 94%;"></div>
+</div>
+<div class="flex justify-between items-center text-code-timestamp font-code-timestamp text-outline">
+<span>Multiplexing audio streams & injecting high-res ID3 tag chunk...</span>
+<span>ETA 4s</span>
+</div>
+</div>
+</div>
+<!-- Item 2: Completed Download with Preview -->
+<div class="rounded-xl bg-surface-container-low hover:bg-surface-container transition-all p-space-md shadow-lg group">
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md">
+<!-- Left: Thumbnail Artwork & Metadata -->
+<div class="flex items-center gap-space-md min-w-0 flex-1">
+<div class="relative w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-surface-container-highest shadow-md">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Epic live concert arena staging with massive organ pipes, blue atmospheric smoke, orchestral silhouettes, cinematic Hans Zimmer Interstellar performance vibe in deep charcoal and indigo." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvuCh-OIS-b4SLB33f4FimOF0e7Xxr9eMi533sfmaCVrcDUSKUuP-01wmAMczROQUn6Ud4fOKvpyE4KqslAgJejpvFeawIErMssI56QIUifutQ-WVU5TMxMqIOemPWfYCRi-5P0ZFsQwL7SrRVtyIUNMqkR06-iUaQ5LQECezEvIXXb40BCKfg-MNIjeOsir8cQ3Dq3k5ynskNV905j-LiYsUws1qt0jZfz2LVW34"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 via-transparent to-transparent"></div>
+<span class="absolute bottom-1 right-1 px-1 rounded bg-surface-container-lowest/90 text-on-surface font-code-timestamp text-[9px]">VBR V0</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface truncate">Interstellar OST Live Prague (Audience Remastered)</span>
+<span class="px-space-xs py-[1px] rounded bg-tertiary-container/30 text-tertiary font-code-timestamp text-[10px] flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[11px]">check_circle</span> Complete
+              </span>
+</div>
+<div class="flex items-center gap-space-sm mt-0.5 text-body-sm font-body-sm text-on-surface-variant flex-wrap">
+<span class="text-primary font-medium">Hans Zimmer</span>
+<span>•</span>
+<span>Live Concert Edition</span>
+<span>•</span>
+<span class="font-code-meta text-code-meta text-outline">2017</span>
+<span>•</span>
+<span class="font-code-meta text-code-meta text-outline">FLAC/MP3 VBR • 24.1 MB</span>
+</div>
+</div>
+</div>
+<!-- Right: Actions -->
+<div class="flex items-center gap-space-sm shrink-0 w-full md:w-auto justify-end">
+<button class="h-8 px-space-sm rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md text-label-md flex items-center gap-1.5 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[15px] text-tertiary">play_arrow</span>
+<span>Play Preview</span>
+</button>
+<button class="h-8 px-space-sm rounded-lg bg-surface-container-highest hover:bg-surface-bright text-on-surface font-label-md text-label-md flex items-center gap-1.5 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[15px]">folder_open</span>
+<span>Open in Finder</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[17px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Clean Finished Bar -->
+<div class="mt-space-md flex items-center justify-between text-code-timestamp font-code-timestamp text-outline">
+<span class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[13px] text-tertiary">verified</span>
+          Stored: ~/Music/YTScribe/Hans Zimmer/Interstellar Live Prague.mp3
+        </span>
+<span class="text-tertiary">Transcoded in 11.2s</span>
+</div>
+</div>
+<!-- Item 3: In Queue Item -->
+<div class="rounded-xl bg-surface-container-low/60 hover:bg-surface-container-low transition-all p-space-md shadow-md group">
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md">
+<!-- Left: Thumbnail Artwork & Metadata -->
+<div class="flex items-center gap-space-md min-w-0 flex-1">
+<div class="relative w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-surface-container-highest shadow-md">
+<img class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-300" data-alt="Anime style illustration of Lofi girl studying near rain-splattered bedroom window at dusk, ambient warm desk lamp glowing against cool purple twilight background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBGU9Hqxb1Wf8dTnhbTd5yKXWTR4IpE5HHFd3GFAJTMlU57k8J0yfEVjC00HJ_1WHjSPqYBDexyiXW5j6-xveodXSNaFKdbyYfWm8OUyOuvGfyzMvVXERMYfCoQ66akhUExiz_tfjiCVBm-8jNfnDoutCVHu3_NRJUQjhm5JE2ouqjc2_J0LEOFLxFTReoQViwHBFpRAvoEkrRdN2s5i60wLcE4KCjeTRJFJwI_Ls"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 via-transparent to-transparent"></div>
+<span class="absolute bottom-1 right-1 px-1 rounded bg-surface-container-lowest/90 text-on-surface font-code-timestamp text-[9px]">320K</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface/90 truncate">Synthwave Radio 2024 - Chill Beats to Relax/Study to</span>
+<span class="px-space-xs py-[1px] rounded bg-surface-container-highest text-outline font-code-timestamp text-[10px]">Pending Slot #3</span>
+</div>
+<div class="flex items-center gap-space-sm mt-0.5 text-body-sm font-body-sm text-on-surface-variant flex-wrap">
+<span class="text-primary/90 font-medium">Lofi Girl</span>
+<span>•</span>
+<span>Lofi Records</span>
+<span>•</span>
+<span class="font-code-meta text-code-meta text-outline">Est. 128 MB</span>
+</div>
+</div>
+</div>
+<!-- Right: Status Metrics -->
+<div class="flex items-center gap-space-md shrink-0 w-full md:w-auto justify-between md:justify-end">
+<div class="flex flex-col items-end">
+<span class="font-label-md text-label-md text-outline">Waiting for slot</span>
+<span class="font-code-meta text-code-meta text-outline-variant">Thread queued</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant flex items-center justify-center transition-colors shadow-sm" title="Prioritize">
+<span class="material-symbols-outlined text-[17px]">arrow_upward</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-surface-container hover:bg-error-container hover:text-on-error-container text-on-surface-variant flex items-center justify-center transition-colors shadow-sm" title="Remove">
+<span class="material-symbols-outlined text-[17px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Queued Bar -->
+<div class="mt-space-md flex flex-col gap-1">
+<div class="w-full h-1.5 rounded-full bg-surface-container-highest/60 overflow-hidden">
+<div class="h-full bg-outline-variant/40 rounded-full w-0"></div>
+</div>
+<div class="flex justify-between items-center text-code-timestamp font-code-timestamp text-outline">
+<span>Metadata cached: Artwork 1400x1400, Title, Artists parsed</span>
+<span>Standing by</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Audio Waveform Inspector & Analytics Block (Bento Layout Metric) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md mt-space-lg">
+<!-- Transcoding Engine Status -->
+<div class="rounded-xl bg-surface-container-low p-space-md shadow-md flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Codec Engine</span>
+<span class="font-code-timestamp text-code-timestamp text-tertiary">FFmpeg v6.1 (Metal)</span>
+</div>
+<p class="font-headline-sm text-headline-sm text-on-surface">Hardware LAME MP3</p>
+<p class="font-body-sm text-body-sm text-outline mt-1">Accelerated CBR/VBR encoding using Apple Silicon NEON vector SIMD pipeline.</p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center gap-space-sm font-code-timestamp text-code-timestamp text-tertiary">
+<span class="material-symbols-outlined text-[16px]">speed</span>
+<span>Average transcode time: 0.12x of real audio duration</span>
+</div>
+</div>
+<!-- Storage Vault Stat -->
+<div class="rounded-xl bg-surface-container-low p-space-md shadow-md flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Vault Capacity</span>
+<span class="font-code-timestamp text-code-timestamp text-primary">Macintosh HD</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-lg text-headline-lg text-on-surface font-semibold">14.2 GB</span>
+<span class="font-body-sm text-body-sm text-outline">used by YTScribe</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container-highest mt-space-sm overflow-hidden flex">
+<div class="h-full bg-primary" style="width: 35%;"></div>
+<div class="h-full bg-tertiary" style="width: 20%;"></div>
+<div class="h-full bg-secondary" style="width: 15%;"></div>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex justify-between font-code-timestamp text-code-timestamp text-outline">
+<span>342 Audio Files</span>
+<span>488 GB Available</span>
+</div>
+</div>
+<!-- Live Stream Signal Stats -->
+<div class="rounded-xl bg-surface-container-low p-space-md shadow-md flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Network Throughput</span>
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+</div>
+<p class="font-headline-sm text-headline-sm text-on-surface">148.9 Mb/s Fiber</p>
+<!-- Mini Inline SVG Sparkline -->
+<div class="w-full h-10 mt-space-xs">
+<svg class="w-full h-full text-tertiary" fill="none" preserveaspectratio="none" viewbox="0 0 200 40">
+<path d="M0 35 L20 28 L40 32 L60 18 L80 24 L100 12 L120 15 L140 8 L160 14 L180 6 L200 4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M0 35 L20 28 L40 32 L60 18 L80 24 L100 12 L120 15 L140 8 L160 14 L180 6 L200 4 L200 40 L0 40 Z" fill="currentColor" fill-opacity="0.12"></path>
+</svg>
+</div>
+</div>
+<div class="mt-space-xs flex justify-between font-code-timestamp text-code-timestamp text-outline">
+<span>Socket: TLSv1.3 Chunked</span>
+<span>Drop Rate: 0.00%</span>
+</div>
+</div>
+</div>
+<!-- macOS Bottom Floating Audio Preview Dock (HUD Tier 3) -->
+<div class="fixed bottom-3 inset-x-0 mx-auto max-w-4xl px-space-md z-40">
+<div class="rounded-xl bg-surface-container-lowest/90 backdrop-blur-3xl shadow-[0_16px_40px_rgba(0,0,0,0.6)] p-space-sm flex flex-col gap-space-xs">
+<!-- Top Track Info & Scrub Controls -->
+<div class="flex items-center justify-between gap-space-md">
+<!-- Track & Metadata Quick Peek -->
+<div class="flex items-center gap-space-sm min-w-0 max-w-xs">
+<div class="w-9 h-9 rounded-md bg-surface-container overflow-hidden shrink-0 shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Close up dark cinematic organ keyboard and orchestral concert warm lighting album miniature." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvaYod7BcF28sIX9-y8HQXhAFUt9-3q2rvRqqTTSeRjtPQuzhQUTrx06plrR24TB90MY2VgLJcbiiUTuoDBawMRQefPETP384_mAfMdhsz3lOnIaeGxzxv91j3W3nGgeHNu7W4qRTB6_0Pl6WME2zQfkXeaeMJqN1TNLq_fSASe6iA07aGC83wVJRe_Ak0nyrdgtwmOFFMD56fF-n5kxYsqwRjnlhXZH3N2sSosHg"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface truncate">Hans Zimmer - Interstellar OST Live</span>
+<span class="font-code-timestamp text-code-timestamp text-primary truncate">MP3 320kbps (Previewing)</span>
+</div>
+</div>
+<!-- Audio Player Center Buttons -->
+<div class="flex items-center gap-space-xs">
+<button class="w-7 h-7 rounded-md text-on-surface-variant hover:text-on-surface flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[18px]">skip_previous</span>
+</button>
+<button class="w-7 h-7 rounded-md text-on-surface-variant hover:text-on-surface flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[18px]">replay_10</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-primary hover:bg-primary-container text-on-primary flex items-center justify-center shadow-md active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<button class="w-7 h-7 rounded-md text-on-surface-variant hover:text-on-surface flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[18px]">forward_10</span>
+</button>
+<button class="w-7 h-7 rounded-md text-on-surface-variant hover:text-on-surface flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[18px]">skip_next</span>
+</button>
+</div>
+<!-- Volume Slider & Action -->
+<div class="flex items-center gap-space-sm">
+<div class="hidden sm:flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-outline text-[16px]">volume_up</span>
+<div class="w-20 h-1 rounded-full bg-surface-container-highest cursor-pointer relative">
+<div class="h-full bg-on-surface-variant rounded-full" style="width: 70%;"></div>
+</div>
+</div>
+<button class="px-space-xs py-1 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-sm text-label-sm flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">equalizer</span>
+<span class="hidden md:inline">Stem Split</span>
+</button>
+</div>
+</div>
+<!-- Audio Waveform Visualizer Scrub Bar -->
+<div class="relative w-full h-8 bg-surface-container-low/70 rounded-lg overflow-hidden flex items-center px-space-xs cursor-pointer group">
+<!-- Synthetic Amplitude Columns (Simulated Waveform Visualizer) -->
+<div class="flex items-center justify-between w-full h-full gap-[2px] opacity-75">
+<!-- Left played portion (Cyan to Indigo tint) -->
+<div class="w-full flex items-center justify-between gap-[2px]">
+<span class="w-[2px] h-3 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-4 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-6 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-3 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-5 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-7 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-4 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-2 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-5 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-6 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-8 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-5 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-3 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-6 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-7 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-4 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-6 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-8 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-7 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-5 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-3 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-6 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-8 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-4 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-2 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-5 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-7 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-6 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-4 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-5 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-7 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-8 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-6 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-3 bg-tertiary rounded-full"></span>
+<span class="w-[2px] h-4 bg-tertiary rounded-full"></span>
+<!-- Unplayed portion (Muted Slate) -->
+<span class="w-[2px] h-5 bg-outline-variant/50 rounded-full"></span>
+<span class="w-[2px] h-6 bg-outline-variant/50 rounded-full"></span>
+<span class="w-[2px] h-4 bg-outline-variant/50 rounded-full"></span>
+<span class="w-[2px] h-2 bg-outline-variant/50 rounded-full"></span>
+<span class="w-[2px] h-5 bg-outline-variant/50 rounded-full"></span>
+<span class="w-[2px] h-7 bg-outline-variant/50 rounded-full"></span>
+<span class="w-[2px] h-5 bg-outline-variant/50 rounded-full"></span>
+<span class="w-[2px] h-3 bg-outline-variant/50 rounded-full"></span>
+<span class="w-[2px] h-6 bg-outline-variant/50 rounded-full"></span>
+<span class="w-[2px] h-4 bg-outline-variant/50 rounded-full"></span>
+<span class="w-[2px] h-3 bg-outline-variant/50 rounded-full"></span>
+<span class="w-[2px] h-5 bg-outline-variant/50 rounded-full"></span>
+<span class="w-[2px] h-7 bg-outline-variant/50 rounded-full"></span>
+<span class="w-[2px] h-5 bg-outline-variant/50 rounded-full"></span>
+<span class="w-[2px] h-2 bg-outline-variant/50 rounded-full"></span>
+<span class="w-[2px] h-4 bg-outline-variant/50 rounded-full"></span>
+<span class="w-[2px] h-6 bg-outline-variant/50 rounded-full"></span>
+<span class="w-[2px] h-3 bg-outline-variant/50 rounded-full"></span>
+<span class="w-[2px] h-5 bg-outline-variant/50 rounded-full"></span>
+<span class="w-[2px] h-7 bg-outline-variant/50 rounded-full"></span>
+<span class="w-[2px] h-4 bg-outline-variant/50 rounded-full"></span>
+<span class="w-[2px] h-3 bg-outline-variant/50 rounded-full"></span>
+<span class="w-[2px] h-5 bg-outline-variant/50 rounded-full"></span>
+<span class="w-[2px] h-2 bg-outline-variant/50 rounded-full"></span>
+</div>
+</div>
+<!-- 1px Playhead Needle -->
+<div class="absolute top-0 bottom-0 left-[58%] w-[2px] bg-on-surface shadow-[0_0_8px_rgba(255,255,255,0.9)] flex flex-col items-center">
+<div class="w-2 h-2 rounded-full bg-on-surface -mt-0.5"></div>
+</div>
+<!-- Timestamps Float Overlay -->
+<span class="absolute left-2 bottom-1 font-code-timestamp text-[10px] text-tertiary select-none">02:18</span>
+<span class="absolute right-2 bottom-1 font-code-timestamp text-[10px] text-outline select-none">-01:42</span>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Micro-interactions for macOS Segmented Audio Preset Picker
+  document.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      if (this.innerText.includes('MP3') || this.innerText.includes('Original Opus')) {
+        const parent = this.parentElement;
+        parent.querySelectorAll('button').forEach(b => {
+          b.className = 'px-space-sm py-[4px] rounded-[6px] text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors';
+          const dot = b.querySelector('.w-1\\.5');
+          if (dot) dot.remove();
+        });
+        this.className = 'px-space-sm py-[4px] rounded-[6px] bg-surface-container-highest text-on-surface font-label-md text-label-md shadow-sm transition-all flex items-center gap-1';
+        const newDot = document.createElement('span');
+        newDot.className = 'w-1.5 h-1.5 rounded-full bg-tertiary';
+        this.prepend(newDot);
+      }
+    });
+  });
+</script></main></div></body></html>

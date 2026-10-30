@@ -1,0 +1,9 @@
+.build/
+build/
+*.app
+vendor/
+.DS_Store
+Icon/master.png
+Icon/AppIcon.iconset/
+webapp/
+*.zip
